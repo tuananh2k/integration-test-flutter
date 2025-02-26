@@ -1,4 +1,63 @@
 # Flutter : Integration Testing Setup
+# Documentation: 
+- https://github.com/flutter/flutter/tree/main/packages/integration_test#android-device-testing
+- https://blog.codemagic.io/codemagic-flutter-integration-tests-firebase-test-lab/
+# Required:
+- Java 17
+- Flutter SDK
+- Flutter Test & Flutter Integration Test SDK
+- GCloud CLI
+- Gradlew
+
+## Setting Java 17
+# Install Java 17
+```bash
+brew install openjdk@17
+sudo ln -sfn $(brew --prefix openjdk@17)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+```
+# Check version Java installed
+```bash
+/usr/libexec/java_home -V
+```
+# Copy path of Java 17 into file `gradle.properties`
+```
+org.gradle.java.home=$PATH_TO_JAVA_HOME
+android.suppressUnsupportedCompileSdk=34
+```
+
+## Setting Flutter SDK
+```bash
+flutter doctor
+```
+### Add Flutter SDK to PATH
+```bash
+export PATH="$PATH":"$HOME"/flutter/bin
+```
+
+## Setting Flutter Test & Flutter Integration Test SDK
+```bash
+flutter pub add flutter_test
+flutter pub add flutter_integration_test
+```
+
+## Setting GCloud CLI
+```bash
+curl https://sdk.cloud.google.com | bash
+```
+### To init GCloud CLI
+```bash
+gcloud init
+```
+### To set project
+```bash
+gcloud config set project <project_id>
+```
+
+## To run IT test with Firebase Test Lab
+```bash
+chmod +x run_test.sh
+./run_test.sh
+```
 
 ## Topics Covered
 - Introduction
@@ -72,6 +131,4 @@ https://user-images.githubusercontent.com/43808980/205088561-56bfe434-d66b-4360-
 
 Stay Tunned for those configuration level details.
 
-
-
-
+## 
