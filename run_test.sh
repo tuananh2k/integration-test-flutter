@@ -3,11 +3,11 @@ pushd android
 # flutter build generates files in android/ for building the app
 flutter build apk
 ./gradlew app:assembleAndroidTest
-./gradlew app:assembleDebug -Ptarget=`pwd`/../integration_test/tests/sanity.test.dart
+./gradlew app:assembleDebug -Ptarget=`pwd`/../integration_test/tests/home.test.dart
 popd
 
 # Write the environment variable in base64 into a JSON file
-echo $GCLOUD_KEY_FILE | base64 --decode > outfile.txt
+#echo $GCLOUD_KEY_FILE | base64 --decode > outfile.txt
 
 # Using the gcloud CLI (preinstalled on Codemagic) authenticate using the service account key
 #gcloud auth activate-service-account --key-file=./orbital-heaven-452110-v9-59cfec929ed0.json
