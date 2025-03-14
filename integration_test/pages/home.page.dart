@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test_example/utils/widget_keys.dart';
 
 import '../components/finder.dart';
 import 'base.page.dart';
@@ -8,6 +9,7 @@ class HomePage extends Page {
 
   final _clickMeButton = findByText("Click Me!");
   final _tapMeButton = findByText("Tap Me!");
+  final _loginButton = findByKey(WidgetKeys.loginButton);
 
   Future<bool> isClickMeButtonPresent() async {
     return isElementPresent(_clickMeButton);
@@ -23,5 +25,13 @@ class HomePage extends Page {
 
   Future<void> navigateToTapMeButton() async {
     await tapOnElement(_tapMeButton);
+  }
+
+  Future<void> inputTextField(Finder finder, String textToSet) async {
+    await setValue(finder, textToSet);
+  }
+
+  Future<void> tapLoginButton() async {
+    await tapOnElement(_loginButton);
   }
 }

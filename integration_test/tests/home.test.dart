@@ -1,20 +1,21 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:integration_test_example/utils/widget_keys.dart';
+import '../components/finder.dart';
 import '../pages/clickMe.page.dart';
 import '../pages/home.page.dart';
 import '../pages/tapMe.page.dart';
-import '../test-init.dart';
+import '../init_test.dart';
 
 void main() {
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
-      as IntegrationTestWidgetsFlutterBinding;
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
-  group('Sanity End to End Test', () {
+  group('Home End to End Test', () {
     testWidgets('Verify Screen UI validations', (WidgetTester tester) async {
       await initTest(tester);
       final homePage = HomePage(tester);
-      
+
       expect(await homePage.isClickMeButtonPresent(), true,
           reason: "Click Me Button not present");
       expect(await homePage.isTapMeButtonPresent(), true,
@@ -45,6 +46,22 @@ void main() {
       await homePage.wait(timeInSec: 2);
 
       expect(await tapMePage.isUserNavigated(), true);
+    });
+
+    testWidgets('Validate Login', (WidgetTester tester) async {
+      await initTest(tester);
+      final homePage = HomePage(tester);
+      final clickMePage = ClickMePage(tester);
+
+      final userNameField = findByKey(WidgetKeys.userNameTextField);
+      final passwordFile = findByKey(WidgetKeys.passwordTextField);
+      await homePage.setValue(userNameField, 'ta');
+      await homePage.setValue(passwordFile, '123');
+
+      await homePage.tapLoginButton();
+      await homePage.wait(timeInSec: 2);
+
+      expect(await clickMePage.isUserNavigated(), true);
     });
   });
 }
